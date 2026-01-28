@@ -6,8 +6,8 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: msg-gateway 
-  replicas: 3
+      app: msg-gateway
+  replicas: 1
   template:
     metadata:
       labels:

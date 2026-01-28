@@ -6,8 +6,8 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: push 
-  replicas: 3 
+      app: push
+  replicas: 1
   template:
     metadata:
       labels:

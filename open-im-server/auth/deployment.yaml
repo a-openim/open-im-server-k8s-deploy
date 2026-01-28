@@ -6,8 +6,8 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: auth 
-  replicas: 3 
+      app: auth
+  replicas: 1
   template:
     metadata:
       labels:
