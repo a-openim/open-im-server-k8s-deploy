@@ -3,6 +3,9 @@
 # Create namespace openim
 kubectl create namespace openim --dry-run=client -o yaml | kubectl apply -f -
 
+# Create namespace openim-infra
+kubectl create namespace openim-infra --dry-run=client -o yaml | kubectl apply -f -
+
 # Install NFS provisioner
 echo "Installing NFS provisioner..."
 if ! command -v helm &> /dev/null; then
@@ -25,40 +28,38 @@ cd ..
 
 # Deploy etcd
 echo "Deploying etcd..."
-kubectl create namespace etcd --dry-run=client -o yaml | kubectl apply -f -
 kubectl apply -f ./etcd/sc.yaml
-helm install etcd ./etcd --namespace etcd
+helm install etcd ./etcd --namespace openim-infra
 
 # Deploy mysql
 echo "Deploying mysql..."
 kubectl apply -f ./mysql/sc.yaml
-helm install mysql ./mysql --namespace openim
+helm install mysql ./mysql --namespace openim-infra
 
 # Deploy mongodb
 echo "Deploying mongodb..."
 kubectl apply -f ./mongodb/sc.yaml
-helm install mongodb ./mongodb --namespace openim
+helm install mongodb ./mongodb --namespace openim-infra
 
 # Deploy redis cluster
 echo "Deploying redis cluster..."
-kubectl create ns redis --dry-run=client -o yaml | kubectl apply -f -
 kubectl apply -f ./redis/sc.yaml
-helm install redis-cluster -f ./redis/values.yaml bitnami/redis-cluster -n redis
+helm install redis-cluster -f ./redis/values.yaml bitnami/redis-cluster -n openim-infra
 
 # Deploy minio
 echo "Deploying minio..."
 kubectl apply -f ./minio/sc.yaml
-helm install minio ./minio --namespace openim
+helm install minio ./minio --namespace openim-infra
 
 # Deploy kafka
 echo "Deploying kafka..."
 kubectl apply -f ./kafka/sc.yaml
-helm install kafka ./kafka --namespace openim
+helm install kafka ./kafka --namespace openim-infra
 
 # Deploy zookeeper
 echo "Deploying zookeeper..."
 kubectl apply -f ./zookeeper/sc.yaml
-helm install zookeeper ./zookeeper --namespace openim
+helm install zookeeper ./zookeeper --namespace openim-infra
 
 # Deploy OpenIM Server
 echo "Deploying OpenIM Server..."
