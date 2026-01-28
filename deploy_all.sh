@@ -43,6 +43,8 @@ helm install mongodb ./mongodb --namespace openim-infra
 
 # Deploy redis cluster
 echo "Deploying redis cluster..."
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
 kubectl apply -f ./redis/sc.yaml
 helm install redis-cluster -f ./redis/values.yaml bitnami/redis-cluster -n openim-infra
 

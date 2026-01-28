@@ -10,6 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
     nginx.ingress.kubernetes.io/websocket-services: "msg-gateway"
   name: msg-gateway-ingress
+  namespace: openim
 spec:
   ingressClassName: nginx
   rules:
@@ -32,6 +33,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-cors: "true"
     nginx.ingress.kubernetes.io/cors-allow-origin: "*"
   name: api-ingress
+  namespace: openim
 spec:
   ingressClassName: nginx
   rules:
