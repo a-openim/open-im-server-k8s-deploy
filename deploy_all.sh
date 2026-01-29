@@ -7,24 +7,25 @@ kubectl create namespace openim --dry-run=client -o yaml | kubectl apply -f -
 kubectl create namespace openim-infra --dry-run=client -o yaml | kubectl apply -f -
 
 # Install NFS provisioner
-echo "Installing NFS provisioner..."
-if ! command -v helm &> /dev/null; then
-    echo "Helm is not installed. Please install Helm first."
-    exit 1
-fi
-helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
-helm repo update
-helm pull nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
-tar -zxvf nfs-subdir-external-provisioner-*.tgz
-cd nfs-subdir-external-provisioner
-# Modify values.yaml for Aliyun mirror (assuming NFS server and path need to be set manually)
-sed -i '' 's|repository:.*|repository: registry.cn-hangzhou.aliyuncs.com/lzf-k8s/k8s-nfs-storage|' values.yaml
-sed -i '' 's|tag:.*|tag: 1.0.0|' values.yaml
-# Note: Set NFS server and path in values.yaml or via --set
-helm install nfs-subdir-external-provisioner . \
-    --set nfs.server=10.88.88.13 \
-    --set nfs.path=/k8s/storage/nfs -f values.yaml
-cd ..
+# echo "Installing NFS provisioner..."
+# if ! command -v helm &> /dev/null; then
+#     echo "Helm is not installed. Please install Helm first."
+#     exit 1
+# fi
+# helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+# helm repo update
+# helm pull nfs-subdir-external-provisioner/nfs-subdir-external-provisioner
+# tar -zxvf nfs-subdir-external-provisioner-*.tgz
+# cd nfs-subdir-external-provisioner
+# # Modify values.yaml for Aliyun mirror (assuming NFS server and path need to be set manually)
+# sed -i '' 's|repository:.*|repository: registry.cn-hangzhou.aliyuncs.com/lzf-k8s/k8s-nfs-storage|' values.yaml
+# sed -i '' 's|tag:.*|tag: 1.0.0|' values.yaml
+# # Note: Set NFS server and path in values.yaml or via --set
+# helm install nfs-subdir-external-provisioner . \
+#     --set nfs.server=10.88.88.13 \
+#     --set nfs.path=/k8s/storage/nfs -f values.yaml
+# cd ..
+echo "NFS provisioner installation skipped - using local-path storage on node3"
 
 # Deploy etcd
 echo "Deploying etcd..."

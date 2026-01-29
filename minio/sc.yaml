@@ -2,10 +2,12 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: minio-data-sc
-provisioner: cluster.local/nfs-subdir-external-provisioner
+provisioner: rancher.io/local-path
 reclaimPolicy: Retain
 allowVolumeExpansion: true
-parameters:
-  server: 10.3.3.145
-  path: "/shares"
-volumeBindingMode: Immediate
+volumeBindingMode: WaitForFirstConsumer
+allowedTopologies:
+- matchLabelExpressions:
+  - key: kubernetes.io/hostname
+    values:
+    - node3

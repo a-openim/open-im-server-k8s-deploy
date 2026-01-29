@@ -43,11 +43,12 @@ helm uninstall etcd --namespace openim-infra --ignore-not-found
 kubectl delete -f ./etcd/sc.yaml --ignore-not-found=true
 
 # Delete NFS provisioner
-echo "Deleting NFS provisioner..."
-helm uninstall nfs-subdir-external-provisioner --ignore-not-found
-cd nfs-subdir-external-provisioner
-kubectl delete -f ./templates/storageclass.yaml --ignore-not-found=true
-cd ..
+# echo "Deleting NFS provisioner..."
+# helm uninstall nfs-subdir-external-provisioner --ignore-not-found
+# cd nfs-subdir-external-provisioner
+# kubectl delete -f ./templates/storageclass.yaml --ignore-not-found=true
+# cd ..
+echo "NFS provisioner deletion skipped - using local-path storage on node3"
 
 # Delete namespace openim-infra
 echo "Deleting namespace openim-infra..."
