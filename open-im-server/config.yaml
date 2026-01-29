@@ -5,7 +5,7 @@ serverversion: 2.3.7
 #---------------Infrastructure configuration---------------------#
 zookeeper:
   schema: openim  #默认即可
-  zkAddr: [ zookeeper-cluster.openim-infra.svc.cluster.local:2181] #单机部署时，默认即可
+  zkAddr: [ 10.88.88.13:2181] #单机部署时，默认即可
   userName:
   password:
 

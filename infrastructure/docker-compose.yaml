@@ -3,6 +3,26 @@ networks:
     driver: bridge
 
 services:
+  # --- 新增 Zookeeper 组件 ---
+  zookeeper:
+    image: bitnamilegacy/zookeeper:3.9.3
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+      - ZOO_TICK_TIME=2000
+    volumes:
+      - "./components/zookeeper/data:/bitnami/zookeeper/data"
+      - "./components/zookeeper/logs:/bitnami/zookeeper/logs"
+    deploy:
+      resources:
+        limits:
+          memory: 256M # 限制内存以省钱
+    restart: always
+    networks:
+      - openim
+
   mongo:
     image: mongo:7.0
     container_name: mongo

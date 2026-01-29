@@ -22,6 +22,10 @@ IP: 10.88.88.13
   - Password: `root123456`
   - Protocol: HTTP
 
+- **Zookeeper**:
+  - URL: `10.88.88.13:2181`
+  - Protocol: Zookeeper
+
 - **Redpanda (Kafka)**:
   - URL: `10.88.88.13:9092`
   - Protocol: Kafka
