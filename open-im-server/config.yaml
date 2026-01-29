@@ -10,9 +10,9 @@ zookeeper:
   password:
 
 mysql:
-  dbMysqlAddress: [ mysql-cluster-primary.openim-infra.svc.cluster.local:3306 ] #mysql地址 目前仅支持单机，默认即可
+  dbMysqlAddress: [ 10.88.88.11:3306 ] #mysql地址 目前仅支持单机，默认即可
   dbMysqlUserName: root #mysql用户名，建议修改
-  dbMysqlPassword: openIMExamplePwd # mysql密码，建议修改
+  dbMysqlPassword: root123456 # mysql密码，建议修改
   dbMysqlDatabaseName: openIM_v2 #默认即可
   dbTableName: eMsg #默认即可
   dbMsgTableNum: 1
@@ -23,41 +23,41 @@ mysql:
   slowThreshold: 500
 
 mongo:
-  dbUri: ""#当dbUri值不为空则直接使用该值
-  dbAddress: [ mongo-shared-cluster-mongodb-sharded.openim-infra.svc.cluster.local:27017 ]  #单机时为mongo地址，使用分片集群时，为mongos地址 默认即可
+  dbUri: "" #当dbUri值不为空则直接使用该值
+  dbAddress: [ 10.88.88.13:27017 ]  #单机时为mongo地址，使用分片集群时，为mongos地址 默认即可
   dbDirect: false
   dbTimeout: 60
-  dbDatabase: openIM  #mongo db 默认即可
+  dbDatabase: openim_v3  #mongo db 默认即可
   dbSource: admin
   dbUserName: root #mongo用户名，建议先不设置
-  dbPassword: openIMExamplePwd  #mongo密码，建议先不设置
+  dbPassword: root123456  #mongo密码，建议先不设置
   dbMaxPoolSize: 100
   dbRetainChatRecords: 3650 #mongo保存离线消息时间（天），根据需求修改
   chatRecordsClearTime: "0 2 * * 3" # 每周三凌晨2点清除消息，该配置和linux定时任务一样， 清理操作建议设置在用户活跃少的时候
 
 redis:
-  dbAddress: [ redis-cluster.openim-infra.svc.cluster.local:6379 ] #redis地址 单机时，填写一个地址即可，使用redis集群时候，填写集群中多个节点地址（主从地址都可以填写，增加容灾能力），默认即可
+  dbAddress: [ 10.88.88.13:6379 ] #redis地址 单机时，填写一个地址即可，使用redis集群时候，填写集群中多个节点地址（主从地址都可以填写，增加容灾能力），默认即可
   dbMaxIdle: 128
   dbMaxActive: 0
   dbIdleTimeout: 120
   dbUserName:     #only redis version 6.0+ need username
-  dbPassWord: openIMExamplePwd #redis密码 建议修改
-  enableCluster: true #如果外部redis以集群方式启动，需要打开此开关
+  dbPassWord: root123456 #redis密码 建议修改
+  enableCluster: false #如果外部redis以集群方式启动，需要打开此开关
 
 kafka:
   SASLUserName:
   SASLPassword:
   ws2mschat:
-    addr: [ kafka-cluster.openim-infra.svc.cluster.local:9092 ] #kafka配置，默认即可
+    addr: [ 10.88.88.13:9092 ] #kafka配置，默认即可
     topic: "ws2ms_chat" #用于mongo和mysql保存消息
   msgtomongo:
-    addr: [ kafka-cluster.openim-infra.svc.cluster.local:9092 ] #kafka配置，默认即可
+    addr: [ 10.88.88.13:9092 ] #kafka配置，默认即可
     topic: "msg_to_mongo"
   ms2pschat:
-    addr: [ kafka-cluster.openim-infra.svc.cluster.local:9092 ] #kafka配置，默认即可
+    addr: [ 10.88.88.13:9092 ] #kafka配置，默认即可
     topic: "ms2ps_chat" #消息push
   msgtomodify:
-    addr: [ kafka-cluster.openim-infra.svc.cluster.local:9092 ] #kafka配置，默认即可
+    addr: [ 10.88.88.13:9092 ] #kafka配置，默认即可
     topic: "msg_to_modify"
   consumergroupid:
     msgToTransfer: mongo
@@ -101,9 +101,9 @@ object:
     tempBucket: "openim"
     dataBucket: "openim"
     location: us-east-1
-    endpoint: http://minio.openim-infra.svc.cluster.local:9000 #minio外网ip 这个ip是给客户端访问的
-    accessKeyID: admin
-    secretAccessKey: openIMExamplePwd
+    endpoint: http://10.88.88.13:9000 #minio外网ip 这个ip是给客户端访问的
+    accessKeyID: root
+    secretAccessKey: root123456
     isDistributedMod: false # 是否分布式多硬盘部署 默认docker-compose中为false，如果是多硬盘部署，需要修改为true
   tencent:
     appID:
