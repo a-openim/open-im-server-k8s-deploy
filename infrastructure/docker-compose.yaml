@@ -30,7 +30,7 @@ services:
       - "27017:27017"
     command: >
       bash -c '
-      docker-entrypoint.sh mongod --wiredTigerCacheSizeGB 0.25 --auth &
+       docker-entrypoint.sh mongod --wiredTigerCacheSizeGB 0.25 &
       until mongosh -u root -p root123456 --authenticationDatabase admin --eval "db.runCommand({ ping: 1 })" &>/dev/null; do
         sleep 1
       done &&
